@@ -3,6 +3,7 @@ from joblib import load
 import pandas as pd
 from keras.models import load_model
 from sklearn.preprocessing import StandardScaler
+import base64
 
 class PredictiveModels:
     def __init__(self) -> None:
@@ -54,6 +55,15 @@ def gpa_remarker(gpa):
 
 # Function to display the Streamlit UI
 def main():
+    st.image('markhorverse.png', caption='Universe of Markhors',)
+    st.sidebar.markdown(
+        """<a href="https://markhorverse.com">
+        <img src="data:image/png;base64,{}" width="25">
+        </a>""".format(
+            base64.b64encode(open("markhorverse.png", "rb").read()).decode()
+        ),
+        unsafe_allow_html=True,
+    )
     st.title("Prediction of SGPA and CGPA of 5th Semester")
 
     # User input form
