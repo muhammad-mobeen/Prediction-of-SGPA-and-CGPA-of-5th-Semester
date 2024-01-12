@@ -55,16 +55,24 @@ def gpa_remarker(gpa):
 
 # Function to display the Streamlit UI
 def main():
-    st.image('markhorverse.png', caption='Universe of Markhors',)
-    st.sidebar.markdown(
-        """<a href="https://markhorverse.com">
-        <img src="data:image/png;base64,{}" width="25">
-        </a>""".format(
+    # st.image('markhorverse.png', caption='Universe of Markhors',)
+    st.markdown(
+        """<div style="display: flex; justify-content: center; align-items: center;">
+        <a href="https://markhorverse.com" title="Universe of Markhors" style="text-align: center;">
+        <img src="data:image/png;base64,{}" width="150">
+        </a>
+        </div>""".format(
             base64.b64encode(open("markhorverse.png", "rb").read()).decode()
         ),
         unsafe_allow_html=True,
     )
-    st.title("Prediction of SGPA and CGPA of 5th Semester")
+    st.markdown(
+        """<div style="display: flex; justify-content: center; align-items: center;">
+        <h1 style="text-align: center;">Prediction of SGPA and CGPA of 5th Semester</h1>
+        </div>""",
+        unsafe_allow_html=True,
+    )
+    # st.title("Prediction of SGPA and CGPA of 5th Semester")
 
     # User input form
     matric_percentage = st.slider("Matric Percentage", 0.0, 100.0, 50.0)
