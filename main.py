@@ -19,7 +19,7 @@ class PredictiveModels:
             'Linear Regression Prediction': self.linear_regression_model.predict(input_data)[0],
             'Support Vector Regressor (SVR) Prediction': self.svr_model.predict(input_data)[0],
             'XGBOOST Prediction': self.xgboost_model.predict(input_data)[0],
-            'Neural Network Prediction': self.neural_network_model.predict(input_data)[0][0],
+            'Neural Network Prediction': self.neural_network_model.predict(input_data)[0][0]%5,
         }
         return response
     
@@ -35,6 +35,22 @@ def preprocess_input(matric_percentage, intermediate_percentage, sgpa_bs1, sgpa_
     }
     data_df = pd.DataFrame(data)
     return data_df
+
+def gpa_remarker(gpa):
+    if gpa >= 3.50 and gpa <= 4.00:
+        return "Extraordinary Performance"
+    elif gpa >= 3.00 and gpa < 3.50:
+        return "Very Good Performance"
+    elif gpa >= 2.50 and gpa < 3.00:
+        return "Good Performance"
+    elif gpa >= 2.00 and gpa < 2.50:
+        return "Satisfactory Performance"
+    elif gpa >= 1.00 and gpa < 2.00:
+        return "Poor Performance"
+    elif gpa >= 0.00 and gpa < 1.00:
+        return "Very Poor Performance"
+    else:
+        return "Error in Prediction"
 
 # Function to display the Streamlit UI
 def main():
@@ -55,8 +71,10 @@ def main():
 
         # Display predictions in a table
         st.subheader("Predictions:")
-        prediction_table = {'Model': list(predictions.keys()), 'SGPA in BS Fifth Semester Prediction': [format(value, ".2f") for value in predictions.values()], 'CGPA in BS Fifth Semester Prediction': [format((value + sgpa_bs1 + sgpa_bs2 + sgpa_bs3 + sgpa_bs4)/5, ".2f") for value in predictions.values()]}
-        st.table(prediction_table)
+        prediction_table = {'Model': list(predictions.keys()), 'SGPA in BS Fifth Semester Prediction': [format(value, ".2f") for value in predictions.values()], 'CGPA in BS Fifth Semester Prediction': [format((value + sgpa_bs1 + sgpa_bs2 + sgpa_bs3 + sgpa_bs4)/5, ".2f") for value in predictions.values()], 'SGPA Remarks': [gpa_remarker(float(format(value, ".2f"))) for value in predictions.values()], 'CGPA Remarks': [gpa_remarker(float(format(value, ".2f"))) for value in predictions.values()]}
+        prediction_table_df = pd.DataFrame(prediction_table)
+        prediction_table_df.index += 1
+        st.table(prediction_table_df)
 
 if __name__ == "__main__":
     # ui()
