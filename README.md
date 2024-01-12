@@ -49,7 +49,7 @@ The project consists of two main components:
 
 ## Credits
 
-This project was created by [Muhammad Mobeen](muhammadmobeen.com). Feel free to reach out for any questions or improvements.
+This project was created by [Muhammad Mobeen](https://muhammadmobeen.com/). Feel free to reach out for any questions or improvements.
 
 ## License
 
